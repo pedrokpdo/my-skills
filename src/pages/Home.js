@@ -15,16 +15,16 @@ export function Home() {
     useEffect(() => {
         const currentHour = new Date().getHours()
 
-        if(currentHour < 12) {
+        if (currentHour < 12) {
             setGretting('Good Morning')
         }
-        else if(currentHour >= 12 && currentHour < 18 ){
+        else if (currentHour >= 12 && currentHour < 18) {
             setGretting('Good Afternoon')
-        }else {
+        } else {
             setGretting('Good Night')
         }
 
-    }, [mySkills])
+    }, [])
 
     return (
         <View style={styles.container}>
