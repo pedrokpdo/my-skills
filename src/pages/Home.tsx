@@ -4,8 +4,8 @@ import { Button } from '../components/Button';
 import { SkillCard } from '../components/SkillCard';
 
 interface SkillData {
-    id:string;
-    name:string;
+    id: string;
+    name: string;
 }
 
 export function Home() {
@@ -19,6 +19,12 @@ export function Home() {
             name: newSkill
         }
         setMySkills([...mySkills, data])
+    }
+
+    function handleRemoveSkill(id:string) {
+        setMySkills(oldState => oldState.filter(
+            skill => skill.id !== id
+        ))
     }
 
     useEffect(() => {
@@ -45,16 +51,19 @@ export function Home() {
                 style={styles.input}
                 onChangeText={setNewSkill}
             />
-            <Button 
-            onPress={handleAddNewSkill} 
-            title='Add'
+            <Button
+                onPress={handleAddNewSkill}
+                title='Add'
             />
             <Text style={[styles.title, { marginVertical: 50 }]}>My skills</Text>
             <FlatList
                 data={mySkills}
                 keyExtractor={item => item.id}
                 renderItem={({ item }) => (
-                    <SkillCard skill={item.name} />
+                    <SkillCard 
+                    skill={item.name} 
+                    onPress={() => handleRemoveSkill(item.id)}
+                    />
                 )}>
 
             </FlatList>
@@ -68,9 +77,8 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#121015',
-        paddingHorizontal: 20,
+        paddingHorizontal: 30,
         paddingVertical: 70,
-        paddingHorizontal: 30
     },
     title: {
         color: '#fff',
